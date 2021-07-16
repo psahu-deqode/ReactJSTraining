@@ -1,0 +1,66 @@
+-Can we write code without JSX?
+Yes, we can write reat code without using JSX.Each JSX element is just another way to call React.createElement(component, props, ...children). We can use plain Javascript to code instead of JSX.
+
+-What is the benefit of writing ReactJs code with JSX?
+JSX helps us in keeping our code simpler and elegant when writing large pieces of code.
+According to the React docs, most people find it helpful as a visual aid when working with UI inside the JavaScript code.
+JSX also allows React to show more useful error and warning messages.
+If one is familiar with HTML, it is quite easy to use JSX when building React application
+Faster than normal JavaScript as it performs optimizations while translating to regular JavaScript.
+
+-Does Browser understand JSX?
+No, browser does not understand JSX because it's not regular javascript
+
+-What would happen if we directly run JSX in Browser?
+JSX not being valid javascript, if we run it directly  as a js file in browser then browser's engine will crash.
+
+-What is state and why do we use it?
+State is a JavaScript object that stores a component’s dynamic data and determines the component’s behaviour. Because state is dynamic, it enables a component to keep track of changing information in between renders and for it to be dynamic and interactive. We use state so we can re-render the component of browser everytime the state of an object changes.
+
+-Can we directly modify or update state?
+yes we can update or modify state but we should not because mutating the state directly can lead to odd bugs and components that are hard to optimize.
+
+-How do you update a state variable?
+we use this.setState() to update a state variable.
+
+-Can anyone update the state variable?
+yes anyone can update the state variable.
+
+-Are props mutable?
+No, props are immutable because props is essentially "state that is managed by the component owner." 
+
+-What can we pass in Props?(object, Components, string, functions)
+we can pass string, componants, functions and jsx attribute as a single object in props
+
+-What is the use of state variables?? Can’t we use normal variables?
+if we use normal variable then react will be unaware of any change and won't re-render react component that has the variable but if we use state variable it will re-render the component. So we use state variable if we want to dynamically re-render component.
+
+-What is the use of props?
+Props is used for passing data from one component to another
+
+-Is there any other way of passing data between components?
+yes we can use React ContextAPI or State management library like Redux for passing data between components.
+
+-When to use functional Components?
+Functional components are easier to read and testable because they are plain js functions. We can use them if we want to increase the application performance by avoiding unnecessary checks and memory allocations
+
+-Are there any advantages or disadvantages of using functional components?
+Advantage
+Easier to test: You don’t have to worry about hidden state and there aren’t as many side effects when it comes to functional components, so for every input, the functions will have exactly one output.
+Easier to read/write: The syntax is less complex than that of class components, and it’s easier to read due to knowing how much you can’t do with functional components already. The use of prop destructuring makes it really beneficial to see what’s going on and what’s coming out of the component.
+Easier to debug: Again, functional components depend on the props they are given and don’t reply on state. There isn’t a reason to console.log() your state to constantly understand the changes that are going on.
+Disadvantage:
+Functional components don’t have access to methods like shouldComponentUpdate and PureComponent, it could be a bit of an inconvenience to optimize them for performance
+
+-What are the lifecycle methods of class components and in which order are they called?
+The lifecycle methods of class components are initialization,mounting,updating and unmounting and they are called in the following order.
+Initialization: This is the stage where the component is constructed with the given Props and default state. This is done in the constructor of a Component Class.
+Mounting: Mounting is the stage of rendering the JSX returned by the render method itself.
+Updating: Updating is the stage when the state of a component is updated and the application is repainted.
+Unmounting: As the name suggests Unmounting is the final step of the component lifecycle where the component is removed from the page.
+
+-What are keys and why do we use them in lists? 
+A “key” is a special string attribute you need to include when creating lists of elements in React. Keys are used to React to identify which items in the list are changed, updated, or deleted.Keys are used to give an identity to the elements in the lists.
+
+-Why does React maintain a Virtual DOM?
+React uses virtual DOM to enhance its performance. It uses the observable to detect state and prop changes. 

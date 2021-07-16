@@ -1,23 +1,31 @@
-import logo from './logo.svg';
+import React from 'react';
+import HelloWorld from './component/Day1Components/HelloWorldQ1';
+import Text from './component/Day1Components/TextQ2';
+import CustomButton from './component/Day1Components/CustomButtonQ3';
+import InputText from './component/Day1Components/InputTextQ4';
+import Input from './component/Day1Components/InputQ5';
+import FormComponent from './component/Day3Components/FormComponant';
+import Form from './component/Day4Components/Form';
 import './App.css';
 
 function App() {
+
+  const onClickCustom = () => {
+    console.log("Button clicked!")
+  }
+
+  const ChangeHandler = () => {
+    console.log("the value of the input field is changed")
+  }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div> <HelloWorld /></div><br />
+      <div> <Text message="Testing prop message" /></div><br />
+      <div> <InputText placeholder="Input Text" handleChange={ChangeHandler} /></div><br />
+      <div><CustomButton label="Click me" function={onClickCustom} /></div><br /><br />
+      <div><Input /></div><br />
+      <div><FormComponent /></div><br /><br />
+      <div><Form /></div><br />
     </div>
   );
 }
