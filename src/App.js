@@ -7,6 +7,7 @@ import Input from './component/Day1Components/InputQ5';
 import FormComponent from './component/Day3Components/FormComponant';
 import Form from './component/Day4Components/Form';
 import './App.css';
+import ErrorBoundary from './ErrorBoundary';
 
 function App() {
 
@@ -18,15 +19,19 @@ function App() {
     console.log("the value of the input field is changed")
   }
   return (
-    <div className="App">
-      <div> <HelloWorld /></div><br />
-      <div> <Text message="Testing prop message" /></div><br />
-      <div> <InputText placeholder="Input Text" handleChange={ChangeHandler} /></div><br />
-      <div><CustomButton label="Click me" function={onClickCustom} /></div><br /><br />
-      <div><Input /></div><br />
-      <div><FormComponent /></div><br /><br />
-      <div><Form /></div><br />
-    </div>
+    <ErrorBoundary>
+      <div className="App">
+        <div> <HelloWorld /></div><br />
+        <div> <Text message="Testing prop message" /></div><br />
+        <div> <InputText placeholder="Input Text" handleChange={ChangeHandler} /></div><br />
+        <div><CustomButton label="Click me" function={onClickCustom} /></div><br /><br />
+        <div><Input /></div><br />
+        <div><FormComponent /></div><br /><br />
+
+        <div><Form /></div><br />
+
+      </div>
+    </ErrorBoundary>
   );
 }
 

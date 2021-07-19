@@ -48,6 +48,7 @@ const Form = (props) => {
             ConfirmPassword: EnterConfirmPass,
             profilePic: EnterProfile,
         }
+
         console.log(FormData)
     };
 
