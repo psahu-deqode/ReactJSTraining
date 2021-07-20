@@ -54,13 +54,23 @@ Functional components don’t have access to methods like shouldComponentUpdate 
 
 -What are the lifecycle methods of class components and in which order are they called?
 The lifecycle methods of class components are initialization,mounting,updating and unmounting and they are called in the following order.
-Initialization: This is the stage where the component is constructed with the given Props and default state. This is done in the constructor of a Component Class.
-Mounting: Mounting is the stage of rendering the JSX returned by the render method itself.
+
+Mounting: Mounting is the stage  when an instance of a component is being created and inserted into the DOM:
+constructor()
+static getDerivedStateFromProps()
+render()
+componentDidMount()
 Updating: Updating is the stage when the state of a component is updated and the application is repainted.
+static getDerivedStateFromProps()
+shouldComponentUpdate()
+render()
+getSnapshotBeforeUpdate()
+componentDidUpdate()
 Unmounting: As the name suggests Unmounting is the final step of the component lifecycle where the component is removed from the page.
+componentWillUnmount()
 
 -What are keys and why do we use them in lists? 
 A “key” is a special string attribute you need to include when creating lists of elements in React. Keys are used to React to identify which items in the list are changed, updated, or deleted.Keys are used to give an identity to the elements in the lists.
 
 -Why does React maintain a Virtual DOM?
-React uses virtual DOM to enhance its performance. It uses the observable to detect state and prop changes. 
+React uses virtual DOM to enhance its performance. For every object that exist in the actual DOM ,there is an object for it in virtual DOM.So every time there is a state change virtual DOM gets updated first. React maintains two Virtual DOM at each time, one contains the updated Virtual DOM and one which is just the pre-update version of this updated Virtual DOM. Now it compares the pre-update version with the updated Virtual DOM and figures out what exactly has changed in the DOM like which components have been changed. This process of comparing the current Virtual DOM tree with the previous one is known as ‘diffing’. Once React finds out what exactly has changed then it updated those objects only, on real DOM.
