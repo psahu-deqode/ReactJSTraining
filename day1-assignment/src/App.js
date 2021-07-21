@@ -3,7 +3,6 @@ import HelloWorld from './component/HelloWorldQ1';
 import Text from './component/TextQ2';
 import CustomButton from './component/CustomButtonQ3';
 import InputText from './component/InputTextQ4';
-// import Input from './component/InputQ5';
 import './App.css';
 
 
@@ -28,7 +27,6 @@ function App() {
       <div> <Text message={TextField} /></div><br />
       <div> <InputText placeholder="Input Text" handleChange={ChangeHandler} /></div><br />
       <div><CustomButton label="Click me" function={onClickCustom} /></div><br /><br />
-      {/* <div><Input /></div><br /> */}
     </div>
   );
 }

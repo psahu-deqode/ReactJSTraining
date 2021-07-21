@@ -1,9 +1,10 @@
 import React from 'react';
 
+
 const InputFileForm = (props) => {
     return <div>
-        <label>Select a file:</label>
-        <input type="file" id="myfile" name="myfile"></input>
+        <label>{props.label}</label>
+        <input type="file" id={props.id} name={props.name}></input>
     </div>
 }
 

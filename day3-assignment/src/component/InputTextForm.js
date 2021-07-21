@@ -2,7 +2,7 @@ import React from 'react';
 
 const InputTextForm = (props) => {
     return <div>
-        <label>Input Text</label>
+        <label>{props.label}</label>
         <input type="text" />
     </div>;
 }

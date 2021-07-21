@@ -1,15 +1,22 @@
 import React from 'react';
+import Select from 'react-select';
+
+
 
 const InputSelectOption = (props) => {
-    return <div>
-        <p>Please select your options:</p>
-        <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike" />
-        <label > vehicle1</label><br />
-        <input type="checkbox" id="vehicle2" name="vehicle2" value="Car" />
-        <label > vehicle2</label><br />
-        <input type="checkbox" id="vehicle3" name="vehicle3" value="Boat" />
-        <label > vehicle3</label><br></br>
-    </div>;
+
+    return <div style={{
+        display: 'flex',
+        justifyContent: 'center',
+    }}>
+        <Select
+            options={props.options}
+            menuPlacement="auto"
+            menuPosition="fixed"
+            text-align="center"
+
+        />
+    </div>
 }
 
 export default InputSelectOption;

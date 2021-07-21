@@ -1,8 +1,8 @@
 import React from 'react';
 
 const InputRange = (props) => {
-    return <div> <label >Points (between 0 and 100):</label>
-        <input type="range" id="points" name="points" min="0" max="100" /><br /></div>;
+    return <div> <label >{props.label}</label>
+        <input type="range" id={props.id} name={props.name} min={props.min} max={props.max} /><br /></div>;
 }
 
 export default InputRange;
