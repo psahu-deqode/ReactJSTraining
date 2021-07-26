@@ -1,124 +1,140 @@
-import React, { useState } from 'react';
+import React, { Component } from 'react';
 import Select from 'react-select';
+import moment from 'moment';
 
-const Form = (props) => {
-    const [EnterName, setEnterName] = useState('');
-    const [EnterEmail, setEnterEmail] = useState('');
-    const [EnterGender, setEnterGender] = useState('');
-    const [EnterDOB, setEnterDOB] = useState('');
-    const [EnterEdu, setEnterEdu] = useState(props.data.education.options[0].value);
-    const [EnterPassword, setEnterPassword] = useState('');
-    const [EnterConfirmPass, setEnterConfirmPass] = useState('');
-    const [EnterProfile, setEnterProfile] = useState('');
+class Form extends Component {
 
-    const NameHandler = (event) => {
-        setEnterName(event.target.value)
-    }
-    const EmailHandler = (event) => {
-        setEnterEmail(event.target.value)
-    }
-    const GenderHandler = (event) => {
-        setEnterGender(event.target.value)
-    }
-    const DOBHandler = (event) => {
-        setEnterDOB(event.target.value)
-    }
-    const EduHandler = (event) => {
-        setEnterEdu(event.value)
-    }
-    const PasswordHandler = (event) => {
-        setEnterPassword(event.target.value)
-    }
-    const ConfirmPassHandler = (event) => {
-        setEnterConfirmPass(event.target.value)
-    }
-    const ProfileHandler = (event) => {
-        setEnterProfile(event.target.value)
+    constructor() {
+
+        super()
+
+        this.state = {
+            EnterName: "",
+            EnterEmail: "",
+            EnterGender: "",
+            EnterDOB: "",
+            EnterEdu: "",
+            EnterPassword: "",
+            EnterConfirmPass: "",
+            EnterProfile: "",
+
+        }
     }
 
+    NameHandler = (event) => {
+        this.setState({ EnterName: event.target.value })
+    }
+    EmailHandler = (event) => {
+        this.setState({ EnterEmail: event.target.value })
+    }
+    GenderHandler = (event) => {
+        this.setState({ EnterGender: event.target.value })
+    }
+    DOBHandler = (event) => {
+        this.setState({ EnterDOB: event.target.value })
+    }
+    EduHandler = (event) => {
+        this.setState({ EnterEdu: event.value })
+    }
+    PasswordHandler = (event) => {
+        this.setState({ EnterPassword: event.target.value })
+    }
+    ConfirmPassHandler = (event) => {
+        this.setState({ EnterConfirmPass: event.target.value })
+    }
+    ProfileHandler = (event) => {
+        this.setState({ EnterProfile: event.target.value })
+    }
 
-    const submitHandler = (event) => {
+    submitHandler = (event) => {
         event.preventDefault()
         FormData = {
-            name: EnterName,
-            email: EnterEmail,
-            Gender: EnterGender,
-            DOB: EnterDOB,
-            Education: EnterEdu,
-            Password: EnterPassword,
-            ConfirmPassword: EnterConfirmPass,
-            profilePic: EnterProfile,
+            Name: this.state.EnterName,
+            Email: this.state.EnterEmail,
+            Gender: this.state.EnterGender,
+            DOB: this.state.EnterDOB,
+            Education: this.state.EnterEdu,
+            Password: this.state.EnterPassword,
+            ConfirmPass: this.state.EnterConfirmPass,
+            ProfilePic: this.state.EnterProfile,
         }
 
         console.log(FormData)
 
     };
 
-    return <div>
-        <form onSubmit={submitHandler}>
+    render() {
 
-            <div>
-                <label>{props.data.name.label}</label>
-                <input type="text" onChange={NameHandler} /><br />
-            </div><br />
 
-            <div>
-                <label>{props.data.email.label}</label>
-                <input type="email" onChange={EmailHandler} /><br />
-            </div><br />
 
-            <div>
-                <label>{props.data.date.label}</label>
-                <input type="date" onChange={DOBHandler} /><br />
-            </div><br />
+        return <div>
+            <form onSubmit={this.submitHandler.bind(this)}>
 
-            <div>
-                <label>{props.data.gender.label}</label>
-                {
-                    props.data.gender.options.map((item) => <div>
-                        <input type="radio" onChange={GenderHandler} id={item.id} name="Radio" value={item.value} key={item.value} />
-                        <label >{item.label}</label><br /></div>)
-                }
-            </div>
+                <div>
+                    <label>{this.props.data.name.label}</label>
+                    <input type="text" onChange={this.NameHandler} required /><br />
+                </div><br />
 
-            <div className="mb-1">
-                Image <span className="font-css top">*</span>
-                <div className="">
-                    <input type="file" id="file-input" name="ImageStyle" onChange={ProfileHandler} />
+                <div>
+                    <label>{this.props.data.email.label}</label>
+                    <input type="email" onChange={this.EmailHandler} required /><br />
+                </div><br />
+
+                <div>
+                    <label>{this.props.data.date.label}</label>
+                    <input type="date" onChange={this.DOBHandler} required max={moment().format("YYYY-MM-DD")} /><br />
+                </div><br />
+
+                <div>
+                    <label>{this.props.data.gender.label}</label>
+                    {
+                        this.props.data.gender.options.map((item) => <div>
+                            <input type="radio" onChange={this.GenderHandler} id={item.id} name="Radio" value={item.value} key={item.value} required />
+                            <label >{item.label}</label><br /></div>)
+                    }
                 </div>
-            </div>
 
-            <div style={{
-                display: 'flex',
-                justifyContent: 'center',
-            }}>
-                <label >{props.data.education.label}</label>
-                <Select
-                    name={props.data.education.name}
-                    onChange={EduHandler}
-                    menuPlacement="auto"
-                    menuPosition="fixed"
-                    text-align="center"
-                    options={props.data.education.options}>
+                <div className="mb-1">
+                    Image <span className="font-css top">*</span>
+                    <div className="">
+                        <input type="file" id="file-input" name="ImageStyle" onChange={this.ProfileHandler} required />
+                    </div>
+                </div>
 
-                </Select>
-            </div>
+                <div style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                }}>
+                    <label >{this.props.data.education.label}</label>
+                    <Select
+                        name={this.props.data.education.name}
+                        onChange={this.EduHandler}
+                        menuPlacement="auto"
+                        menuPosition="fixed"
+                        text-align="center"
+                        options={this.props.data.education.options}
+
+                    >
+
+                    </Select>
+                </div>
 
 
-            <div>
-                <label>{props.data.password.label}</label>
-                <input type="password" onChange={PasswordHandler} /><br />
-            </div><br />
+                <div>
+                    <label>{this.props.data.password.label}</label>
+                    <input type="password" onChange={this.PasswordHandler} required pattern=".{8,}" title="Eight or more characters" /><br />
+                </div><br />
 
-            <div>
-                <label>{props.data.confirmpassword.label}</label>
-                <input type="password" onChange={ConfirmPassHandler} /><br />
-            </div><br />
-            <button type='submit'>Submit </button>
+                <div>
+                    <label>{this.props.data.confirmpassword.label}</label>
+                    <input type="password" onChange={this.ConfirmPassHandler} required pattern=".{8,}" title="Eight or more characters" /><br />
+                </div><br />
+                <button type='submit' >Submit </button>
 
-        </form>
+            </form>
 
-    </div >
+        </div >
+    }
 }
 
 export default Form;

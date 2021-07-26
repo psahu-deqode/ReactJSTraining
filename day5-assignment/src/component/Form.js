@@ -1,127 +1,114 @@
+import React, { Component } from 'react';
+import { nanoid } from "nanoid";
+import ListRecord from './ListRecord'
+import "../App.css";
+import InputDateForm from './InputDateForm';
+import InputEmailForm from './InputEmailForm';
+import InputNameForm from './InputNameForm';
+import InputGenderForm from './InputGenderForm';
+import InputImageForm from './InputImageForm';
+import InputEducationForm from './InputEducationForm'
+import InputPasswordForm from './InputPasswordForm'
+import InputConfirmPasswordForm from './InputConfirmPasswordForm';
 
-import React, { useState } from 'react';
-import Select from 'react-select';
+class Form extends Component {
 
-const Form = (props) => {
-    const [EnterName, setEnterName] = useState('');
-    const [EnterEmail, setEnterEmail] = useState('');
-    const [EnterGender, setEnterGender] = useState('');
-    const [EnterDOB, setEnterDOB] = useState('');
-    const [EnterEdu, setEnterEdu] = useState(props.data.education.options[0].value);
-    const [EnterPassword, setEnterPassword] = useState('');
-    const [EnterConfirmPass, setEnterConfirmPass] = useState('');
-    const [EnterProfile, setEnterProfile] = useState('');
-    const [SubmittedForm, setSubmittedForm] = useState([])
+    constructor() {
 
-    const NameHandler = (event) => {
-        setEnterName(event.target.value)
-    }
-    const EmailHandler = (event) => {
-        setEnterEmail(event.target.value)
-    }
-    const GenderHandler = (event) => {
-        setEnterGender(event.target.value)
-    }
-    const DOBHandler = (event) => {
-        setEnterDOB(event.target.value)
-    }
-    const EduHandler = (event) => {
-        setEnterEdu(event.value)
-    }
-    const PasswordHandler = (event) => {
-        setEnterPassword(event.target.value)
-    }
-    const ConfirmPassHandler = (event) => {
-        setEnterConfirmPass(event.target.value)
-    }
-    const ProfileHandler = (event) => {
-        setEnterProfile(event.target.value)
-    }
+        super()
+
+        this.state = {
+            EnterName: "",
+            EnterEmail: "",
+            EnterGender: "",
+            EnterDOB: "",
+            EnterEdu: "",
+            EnterPassword: "",
+            EnterConfirmPass: "",
+            EnterProfile: "",
+            SubmittedForm: [],
 
 
-    const submitHandler = (event) => {
+        }
+    }
+
+    NameHandler = (event) => {
+        this.setState({ EnterName: event.target.value })
+    }
+    EmailHandler = (event) => {
+        this.setState({ EnterEmail: event.target.value })
+    }
+    GenderHandler = (event) => {
+        this.setState({ EnterGender: event.target.value })
+    }
+    DOBHandler = (event) => {
+        this.setState({ EnterDOB: event.target.value })
+    }
+    EduHandler = (event) => {
+        this.setState({ EnterEdu: event.value })
+    }
+    PasswordHandler = (event) => {
+        this.setState({ EnterPassword: event.target.value })
+    }
+    ConfirmPassHandler = (event) => {
+        this.setState({ EnterConfirmPass: event.target.value })
+    }
+    ProfileHandler = (event) => {
+        this.setState({ EnterProfile: event.target.value })
+    }
+
+    deleteRecordHandler = (newData) => {
+        this.setState({ SubmittedForm: newData })
+    }
+
+    EditedDataHandle = (EditedData) => {
+
+        const selectedRecord = this.state.SubmittedForm.filter((items) => items.id === EditedData.id)
+        const UpdatedRow = [...this.state.SubmittedForm]
+        UpdatedRow[UpdatedRow.findIndex(o => o.id === selectedRecord[0].id)] = EditedData
+        this.setState({ SubmittedForm: UpdatedRow })
+
+    }
+    submitHandler = (event) => {
         event.preventDefault()
         FormData = {
-            name: EnterName,
-            email: EnterEmail,
-            Gender: EnterGender,
-            DOB: EnterDOB,
-            Education: EnterEdu,
-            Password: EnterPassword,
-            ConfirmPassword: EnterConfirmPass,
-            profilePic: EnterProfile,
+            id: nanoid(),
+            name: this.state.EnterName,
+            email: this.state.EnterEmail,
+            Gender: this.state.EnterGender,
+            DOB: this.state.EnterDOB,
+            Education: this.state.EnterEdu,
+            Password: this.state.EnterPassword,
+            ConfirmPassword: this.state.EnterConfirmPass,
+            profilePic: this.state.EnterProfile,
         }
-        setSubmittedForm(([FormData, ...SubmittedForm]), props.parentCallback(SubmittedForm));
-
-
-
+        this.setState({ SubmittedForm: [FormData, ...this.state.SubmittedForm] })
     };
 
-    return <div>
-        <form onSubmit={submitHandler}>
-
-            <div>
-                <label>{props.data.name.label}</label>
-                <input type="text" onChange={NameHandler} /><br />
-            </div><br />
-
-            <div>
-                <label>{props.data.email.label}</label>
-                <input type="email" onChange={EmailHandler} /><br />
-            </div><br />
-
-            <div>
-                <label>{props.data.date.label}</label>
-                <input type="date" onChange={DOBHandler} /><br />
-            </div><br />
-
-            <div>
-                <label>{props.data.gender.label}</label>
-                {
-                    props.data.gender.options.map((item) => <div>
-                        <input type="radio" onChange={GenderHandler} id={item.id} name="Radio" value={item.value} key={item.value} />
-                        <label >{item.label}</label><br /></div>)
-                }
-            </div>
-
-            <div className="mb-1">
-                Image <span className="font-css top">*</span>
-                <div className="">
-                    <input type="file" id="file-input" name="ImageStyle" onChange={ProfileHandler} />
-                </div>
-            </div>
-
-            <div style={{
-                display: 'flex',
-                justifyContent: 'center',
-            }}>
-                <label >{props.data.education.label}</label>
-                <Select
-                    name={props.data.education.name}
-                    onChange={EduHandler}
-                    menuPlacement="auto"
-                    menuPosition="fixed"
-                    text-align="center"
-                    options={props.data.education.options}>
-
-                </Select>
-            </div>
+    render() {
 
 
-            <div>
-                <label>{props.data.password.label}</label>
-                <input type="password" onChange={PasswordHandler} /><br />
-            </div><br />
+        return <div className="app-container">
+            <div >
+                <form onSubmit={this.submitHandler.bind(this)} >
 
-            <div>
-                <label>{props.data.confirmpassword.label}</label>
-                <input type="password" onChange={ConfirmPassHandler} /><br />
-            </div><br />
-            <button type='submit'>Submit </button>
+                    <InputNameForm label={this.props.data.name.label} NameHandler={this.NameHandler} />
+                    <InputEmailForm label={this.props.data.email.label} EmailHandler={this.EmailHandler} />
+                    <InputDateForm label={this.props.data.date.label} DOBHandler={this.DOBHandler} />
+                    <InputGenderForm label={this.props.data.gender.label} options={this.props.data.gender.options} GenderHandler={this.GenderHandler} />
+                    <InputImageForm ProfileHandler={this.ProfileHandler} />
+                    <InputEducationForm label={this.props.data.education.label} name={this.props.data.education.name} options={this.props.data.education.options} EduHandler={this.EduHandler} />
+                    <InputPasswordForm label={this.props.data.password.label} PasswordHandler={this.PasswordHandler} />
+                    <InputConfirmPasswordForm label={this.props.data.confirmpassword.label} ConfirmPassHandler={this.ConfirmPassHandler} />
 
-        </form>
+                    <button type='submit' >Submit </button>
 
-    </div >
+                </form>
+
+            </div >
+            <ListRecord record={this.state.SubmittedForm} data={this.props.data} deleteRecordHandler={this.deleteRecordHandler} EditedDataHandle={this.EditedDataHandle} />
+        </div>
+    }
 }
 
 export default Form;

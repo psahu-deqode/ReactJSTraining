@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Form from './component/Form';
-import ListRecord from './component/ListRecord'
 import './App.css';
 
 
@@ -32,15 +31,9 @@ function App() {
 
   }
 
-  const [Record, setRecord] = useState([])
-  const handleCallback = (childData) => {
-    setRecord(childData)
-  }
-
   return (
-    <div className="App">
-      <div><Form parentCallback={handleCallback} data={Data} /></div><br />
-      <div><ListRecord record={Record} /></div>
+    <div className="app-container">
+      <div><Form data={Data} /></div><br />
     </div>
   );
 }
