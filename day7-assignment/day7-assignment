@@ -1,0 +1,59 @@
+Should you keep all component states in the Redux store?
+
+No, we don't have to. It is totally fine to use a mix of React component state and Redux state. You might for example use non-critical UI state inside React components.Is this state important to the rest of the application? Will other parts of the application behave differently based on that state? In many minor cases, that will not be the case. Take a drop down menu: The fact that it's open or closed probably won't have an effect on other parts of the app. So, wiring it up to your store is probably overkill. It's certainly a valid option, but doesn't really net you any benefits. You're better off using this.state
+
+Explain Redux in your own words
+
+Redux is a predictable state container for JavaScript apps.
+ state container is basically something that holds the state of your application. A state, for example, can be whether or not a user is logged in or not. Your application’s state can either be where a user is logged in or is a guest. So Redux is a state container that holds all the states that your application can have.These states are not mutable. Basically that means that you can’t change the state directly. However, given some action while in a state, you can return a new state. For example, if a user takes the action of logging in, you wouldn’t change the current state’s variable to track whether a user is logged in. You would have to create a new state with the modified variable and return that. It essentially replaces the old state.  if your application takes the same actions from the same state, you will always get the same outcome.For example, a user can be logged out and our state can denote that we are in “guest mode”. If the user logins, we can always predict that our state will be in “user mode”. From there, if the user logouts, we can always predict that our state will be back into “guest mode”.
+So to put it together, we have a way to store the state of our application and if we can take some set of actions from some state, we will always end up in the same end state.
+
+What are reducers and actions?
+Actions are a plain JavaScript object that contains information. Actions are the only source of information for the store. Actions have a type field that tells what kind of action to perform and all other fields contain information or data.It tells us what had happened
+Reducers are a pure function in Redux. Pure functions are predictable. Reducers are the only way to change states in Redux. It is the only place where you can write logic and calculations. Reducer function will accept the previous state of app and action being dispatched, calculate the next state and returns the new object.
+
+Why should a reducer return a new state object?
+
+If we imagine a state manager which allowed functions to manipulate state, which is what would be required to return a mutated version of the original state, then it would be far more difficult to understand how a given state was reached, as the store could have been manipulated at any point by any function.
+
+When an action is dispatched, are all the reducers called?
+
+Yes - all the reducers will get called when you dispatch the action.
+
+What are the core principles of Redux?
+
+Single source of truth. The global state of your application is stored in an object tree within a single store.  A single state tree also makes it easier to debug or inspect an application; it also enables you to persist your app's state in development, for a faster development cycle. 
+
+State is read-only. The only way to change the state is to emit an action, an object describing what happened. This ensures that neither the views nor the network callbacks will ever write directly to the state. Instead, they express an intent to transform the state. Because all changes are centralized and happen one by one in a strict order,
+
+Changes are made with pure functions.To specify how the state tree is transformed by actions, you write pure reducers.
+Reducers are just pure functions that take the previous state and an action, and return the next state. Remember to return new state objects, instead of mutating the previous state. 
+
+Why should you use redux in your app?
+
+ the component does not need to provide any state or method for its children components to share data among themselves. Everything is handled by Redux. This greatly simplifies the app and makes it easier to maintain.
+ Redux makes the state predictable
+In Redux, the state is always predictable. If the same state and action are passed to a reducer, the same result is always produced because reducers are pure functions. The state is also immutable and is never changed. This makes it possible to implement arduous tasks like infinite undo and redo. It is also possible to implement time travel — that is, the ability to move back and forth among the previous states and view the results in real time.
+
+Redux is maintainable
+Redux is strict about how code should be organized, which makes it easier for someone with knowledge of Redux to understand the structure of any Redux application. This generally makes it easier to maintain. This also helps you segregate your business logic from your component tree. 
+
+Debugging is easy in Redux
+Redux makes it easy to debug an application. By logging actions and state, it is easy to understand coding errors, network errors, and other forms of bugs that might come up during production.
+
+Ease of testing
+It is easy to test Redux apps since functions used to change the state of pure functions.
+
+State persistence
+You can persist some of the app’s state to local storage and restore it after a refresh.
+
+Server-side rendering
+Redux can also be used for server-side rendering. With it, you can handle the initial render of the app by sending the state of an app to the server along with its response to the server request. The required components are then rendered in HTML and sent to the clients.
+
+How Redux Works - Redux Workflow?
+
+1. A user interacts with a front-end component. An accessory is used to call a function that initiates an action. Actions are started using props when mapped to props in an object called mapActionsToProps (or it can be called anything), which tells the react application which props use to initiate an action.
+2. An action usually contains a type (or identifier) and payload (or data). It can also perform tasks such as fetching data from APIs. 
+3. Once an action is dispatched, it is received by a reducer. A reducer’s job is to return the changed state. Depending on the type of the action, a reducer may return an altered state of the component
+All reducers of a react app are combined into one single reducer which is passed as an argument to the redux store.
+4. The changed state is again utilized to show the updated component. The states are mapped to the props of the component, in the mapStateToProps function. The defined props in this function can be used accordingly to update the components.
